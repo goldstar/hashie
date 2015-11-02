@@ -6,6 +6,7 @@ describe Hashie::Extensions::IgnoreUndeclared do
       include Hashie::Extensions::IgnoreUndeclared
       property :city
       property :state, from: :provence
+      property :postal, from: 'postal_code'
     end
 
     subject { ForgivingTrash }
@@ -19,7 +20,7 @@ describe Hashie::Extensions::IgnoreUndeclared do
     end
 
     it 'works with translated properties (with string keys)' do
-      expect(subject.new(provence: 'Ontario').state).to eq('Ontario')
+      expect(subject.new('postal_code' => 'M5P 2N7').postal).to eq('M5P 2N7')
     end
 
     it 'requires properties to be declared on assignment' do
